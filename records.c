@@ -1,4 +1,5 @@
 #include "records.h"
+
 #include "variables.h"
 
 int CALLBACK recordsComparator(const void *first, const void *second) {

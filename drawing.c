@@ -218,3 +218,26 @@ VOID drawFrame(HDC hdcWindow, size_t widthGameWnd, size_t heightGameWnd, HDC hdc
     GetObject((HBITMAP)GetCurrentObject(hdcRenderer, OBJ_BITMAP), sizeof(frameBitmap), &frameBitmap);
     StretchBlt(hdcWindow, 0, 0, (int)widthGameWnd, (int)heightGameWnd, hdcRenderer, 0, 0, frameBitmap.bmWidth, frameBitmap.bmHeight, SRCCOPY);
 }
+
+VOID updateGameInfoPane(VOID) {
+    InvalidateRect(hGameInfoPaneWnd, NULL, FALSE);
+}
+
+VOID updateScoreCounter(HDC hdc, PAINTSTRUCT *ps, HFONT hFont) {
+    SelectObject(hdc, hFont);
+    SetBkMode(hdc, TRANSPARENT);
+    SetTextColor(hdc, 0xFFFFFF);
+    WCHAR wScore[MAX_SCORE_COUNTER_LENGTH];
+    _ui64tow_s(game.score, wScore, MAX_SCORE_COUNTER_LENGTH, 10);
+    //SetWindowTextW(hScoreCounterLabel, wScore);
+    TextOutW(hdc, LEFT_PANE_FIELD, RIGHT_PANE_FIELD, wScore, lstrlenW(wScore));
+}
+
+VOID switchPane(HWND source, HWND destination) {
+    ShowWindow(source, SW_HIDE);
+    ShowWindow(destination, SW_SHOW);
+    activePane = destination;
+    SetFocus(destination);
+    updateGameInfoPane();
+}
+

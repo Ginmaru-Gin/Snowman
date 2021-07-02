@@ -1,28 +1,10 @@
 #pragma once
 
+#include "abilities.h"
+
 #include <malloc.h>
 #include <stdio.h>
 #include <Windows.h>
-
-enum AbilityIndex {
-	ACTIVE_ABILITY_1,
-	ACTIVE_ABILITY_2,
-	ACTIVE_ABILITY_3,
-	PASSIVE_ABILITY_1,
-	PASSIVE_ABILITY_2
-};
-
-typedef struct Skin {
-	UINT ID;
-	HBITMAP gameBackground;
-	HBITMAP paneBackground;
-	HBITMAP character;
-	HBITMAP gift;
-	HBITMAP resourceLife;
-	HBITMAP abilityResources[3];
-	UINT gameMusic;
-	UINT menuMusic;
-} Skin;
 
 typedef struct Coordinate {
 	INT X, Y;
@@ -60,11 +42,6 @@ typedef struct Resource {
 	Faller;
 
 } Resource;
-
-typedef struct Ability {
-	UINT ID;
-	UINT status;
-} Ability;
 
 typedef struct Game {
 	GameField *gameField;

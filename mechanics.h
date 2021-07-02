@@ -3,6 +3,8 @@
 #include "objects.h"
 #include "variables.h"
 
+#include <Windows.h>
+
 typedef enum Direction{
     LEFT,
     RIGHT,

@@ -1,15 +1,22 @@
 #include "abilities.h"
 
-VOID useAbilityP1(INT action);
-VOID useAbilityP2(INT action);
-VOID useAbilityP3(INT action);
-VOID useAbilityP4(INT action);
-VOID useAbilityA1(INT action);
-VOID useAbilityA2(INT action);
-VOID useAbilityA3(INT action);
-VOID useAbilityA4(INT action);
-VOID useAbilityA5(INT action);
-VOID useAbilityA6(INT action);
+#include "variables.h"
+
+#define INCREASED_BY_PERCENTS(VAR, PERCENTS)( VAR * (1 + (DOUBLE)PERCENTS / 100) )
+#define DECREASED_BY_PERCENTS(VAR, PERCENTS)( VAR / (1 + (DOUBLE)PERCENTS / 100) )
+#define INCREASED_BY_VALUE(VAR, VALUE)( VAR + VALUE)
+#define DECREASED_BY_VALUE(VAR, VALUE)( VAR - VALUE)
+
+static VOID useAbilityP1(INT action);
+static VOID useAbilityP2(INT action);
+static VOID useAbilityP3(INT action);
+static VOID useAbilityP4(INT action);
+static VOID useAbilityA1(INT action);
+static VOID useAbilityA2(INT action);
+static VOID useAbilityA3(INT action);
+static VOID useAbilityA4(INT action);
+static VOID useAbilityA5(INT action);
+static VOID useAbilityA6(INT action);
 
 VOID useAbility(UINT abilityIndex, INT action) {
     if (game.abilities[abilityIndex].status ^ action) {
@@ -75,10 +82,10 @@ VOID useAbility(UINT abilityIndex, INT action) {
 VOID useAbilityP1(INT action) {
     switch (action) {
     case ABILITY_ACTIVATE:
-        game.player->speed *= 1.2;
+        game.player->speed = INCREASED_BY_PERCENTS(game.player->speed, ABILITY_P1_STRENGTH);
         break;
     case ABILITY_DEACTIVATE:
-        game.player->speed /= 1.2;
+        game.player->speed = DECREASED_BY_PERCENTS(game.player->speed, ABILITY_P1_STRENGTH);
         break;
     }
 }
@@ -86,11 +93,11 @@ VOID useAbilityP1(INT action) {
 VOID useAbilityP2(INT action) {
     switch (action) {
     case ABILITY_ACTIVATE:
-        game.maxLifes += 2;
+        game.maxLifes = INCREASED_BY_VALUE(game.maxLifes, ABILITY_P2_STRENGTH);
         game.lifes = game.maxLifes;
         break;
     case ABILITY_DEACTIVATE:
-        game.maxLifes -= 2;
+        game.maxLifes = DECREASED_BY_VALUE(game.maxLifes, ABILITY_P2_STRENGTH);
         game.lifes = game.maxLifes;
         break;
     }
@@ -99,10 +106,18 @@ VOID useAbilityP2(INT action) {
 VOID useAbilityP3(INT action) {
     switch (action) {
     case ABILITY_ACTIVATE:
-        resizeObject((Object *)game.player, game.player->width * 1.2, game.player->height * 1.2);
+        resizeObject(
+            (Object *)game.player,
+            INCREASED_BY_PERCENTS(game.player->width, ABILITY_P3_STRENGTH),
+            INCREASED_BY_PERCENTS(game.player->height, ABILITY_P3_STRENGTH)
+        );
         break;
     case ABILITY_DEACTIVATE:
-        resizeObject((Object *)game.player, game.player->width / 1.2, game.player->height / 1.2);
+        resizeObject(
+            (Object *)game.player,
+            DECREASED_BY_PERCENTS(game.player->width, ABILITY_P3_STRENGTH),
+            DECREASED_BY_PERCENTS(game.player->width, ABILITY_P3_STRENGTH)
+        );
         break;
     }
 }
@@ -110,10 +125,10 @@ VOID useAbilityP3(INT action) {
 VOID useAbilityP4(INT action) {
     switch (action) {
     case ABILITY_ACTIVATE:
-        game.maxResources += 1;
+        game.maxResources = INCREASED_BY_VALUE(game.maxResources, ABILITY_P4_STRENGTH);
         break;
     case ABILITY_DEACTIVATE:
-        game.maxResources -= 1;
+        game.maxResources = DECREASED_BY_VALUE(game.maxResources, ABILITY_P4_STRENGTH);
         break;
     }
 }
@@ -121,16 +136,24 @@ VOID useAbilityP4(INT action) {
 VOID useAbilityA1(INT action) {
     switch (action) {
     case ABILITY_ACTIVATE:
-        resizeObject((Object *)game.player, game.player->width * 2, game.player->height * 2);
+        resizeObject(
+            (Object *)game.player,
+            INCREASED_BY_PERCENTS(game.player->width, ABILITY_A1_STRENGTH),
+            INCREASED_BY_PERCENTS(game.player->height, ABILITY_A1_STRENGTH)
+        );
         SetTimer(
             hGameWnd,
             ABILITY_SLOT_A1_TIMER_ID,
-            ABILITY_A1_TIMER,
+            ABILITY_A1_TIME,
             (TIMERPROC)NULL
         );
         break;
     case ABILITY_DEACTIVATE:
-        resizeObject((Object *)game.player, game.player->width / 2, game.player->height / 2);
+        resizeObject(
+            (Object *)game.player,
+            DECREASED_BY_PERCENTS(game.player->width, ABILITY_A1_STRENGTH),
+            DECREASED_BY_PERCENTS(game.player->height, ABILITY_A1_STRENGTH)
+        );
         break;
     }
 }
@@ -138,16 +161,16 @@ VOID useAbilityA1(INT action) {
 VOID useAbilityA2(INT action) {
     switch (action) {
     case ABILITY_ACTIVATE:
-        game.player->speed *= 2;
+        game.player->speed = INCREASED_BY_PERCENTS(game.player->speed, ABILITY_A2_STRENGTH);
         SetTimer(
             hGameWnd,
             ABILITY_SLOT_A2_TIMER_ID,
-            ABILITY_A2_TIMER,
+            ABILITY_A2_TIME,
             (TIMERPROC)NULL
         );
         break;
     case ABILITY_DEACTIVATE:
-        game.player->speed /= 2;
+        game.player->speed = DECREASED_BY_PERCENTS(game.player->speed, ABILITY_A2_STRENGTH);
         break;
     }
 }
@@ -162,29 +185,35 @@ VOID useAbilityA3(INT action) {
 }
 
 VOID useAbilityA4(INT action) {
-    game.lifes += 3;
+    game.lifes = INCREASED_BY_VALUE(game.lifes, ABILITY_A4_STRENGTH);
     if (game.lifes > game.maxLifes) {
         game.lifes = game.maxLifes;
     }
 }
 
-VOID useAbilityA5(INT action) {
+VOID useAbilityA5(INT action){
     switch (action) {
     case ABILITY_ACTIVATE:
-        game.difficultyMultiplierScore *= 2;
+        game.difficultyMultiplierScore = INCREASED_BY_PERCENTS(
+            game.difficultyMultiplierScore,
+            ABILITY_A5_STRENGTH
+        );
         SetTimer(
             hGameWnd,
             ABILITY_SLOT_A2_TIMER_ID,
-            ABILITY_A5_TIMER,
+            ABILITY_A5_TIME,
             (TIMERPROC)NULL
         );
         break;
     case ABILITY_DEACTIVATE:
-        game.difficultyMultiplierScore /= 2;
+        game.difficultyMultiplierScore = DECREASED_BY_PERCENTS(
+        game.difficultyMultiplierScore,
+        ABILITY_A5_STRENGTH
+        );
         break;
     }
 }
 
 VOID useAbilityA6(INT action) {
-    game.gravity *= 0.9;
+    game.gravity = DECREASED_BY_PERCENTS(game.gravity, ABILITY_A6_STRENGTH);
 }

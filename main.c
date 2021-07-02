@@ -1,5 +1,6 @@
 #include <Windows.h>
 #include <time.h>
+
 #include "abilities.h"
 #include "drawing.h"
 #include "game.h"

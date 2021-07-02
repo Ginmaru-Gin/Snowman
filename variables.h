@@ -1,6 +1,8 @@
 #pragma once
+
 #include "objects.h"
 #include "records.h"
+#include "skin.h"
 
 HINSTANCE hInstance;
 RECT clipCursorRect;
@@ -176,19 +178,15 @@ HWND hRecordListLabels[MAX_RECORDS_AMOUNT];
 #define INPUT_TIMER                     30
 #define GRAVITY_INCREASING_TIMER        500
 #define FPS                             120
-#define ABILITY_A1_TIMER                10000
-#define ABILITY_A2_TIMER                10000
-#define ABILITY_A3_TIMER                10000
-#define ABILITY_A5_TIMER                10000
 
 // TIMER ID
 #define GAME_PROC_TIMER_ID              1
 #define DRAWING_TIMER_ID                2
 #define INPUT_TIMER_ID                  3
 #define GRAVITY_INCREASING_TIMER_ID     4
-#define ABILITY_SLOT_A1_TIMER_ID             5
-#define ABILITY_SLOT_A2_TIMER_ID             6
-#define ABILITY_SLOT_A3_TIMER_ID             7
+#define ABILITY_SLOT_A1_TIMER_ID        5
+#define ABILITY_SLOT_A2_TIMER_ID        6
+#define ABILITY_SLOT_A3_TIMER_ID        7
 
 //GAME STATUS FLAG
 #define INITIALIZED                     0x0
@@ -199,8 +197,12 @@ HWND hRecordListLabels[MAX_RECORDS_AMOUNT];
 #define GAME_IS_PAUSED					(STARTED | PAUSED)
 #define GAME_IN_PROCESS					(STARTED & ~PAUSED)
 
-// GAME FIELD AND GAME PROCESS VARIABLE
+// SUPPORT VARIABLE
+#define MAX_SCORE_COUNTER_LENGTH        20
+#define MAX_LIVES_COUNTER_LENGTH        3
 #define MAX_SCORE_STR_LEN               10
+
+// GAME FIELD AND GAME PROCESS VARIABLE
 #define GIFT_COUNT                      7
 #define ACTIVE_ABILITY_COUNT            3
 #define PASSIVE_ABILITY_COUNT           2
@@ -226,22 +228,46 @@ HWND hRecordListLabels[MAX_RECORDS_AMOUNT];
 #define SKIN_SNOWMAN                    1
 #define SKIN_EVANGELION                 2
 
+// ABILITIES
 #define WM_USE_ABILITY                  (WM_USER + 1)
-// ABILITY ID
 // PASSIVE ABILITY (WM_USER + 1XXX)
 #define DEFAULT_ABILITY_P1_ID           ABILITY_P1_ID
 #define DEFAULT_ABILITY_P2_ID           ABILITY_P2_ID
-#define ABILITY_P1_ID                   1001 // +20% speed
-#define ABILITY_P2_ID                   1002 // +2 max lifes
-#define ABILITY_P3_ID                   1003 // +20% size
-#define ABILITY_P4_ID                   1004 // +1 max resources
+
+#define ABILITY_P1_ID                   1001 // +[ABILITY_P1_STRENGTH]% speed
+#define ABILITY_P1_STRENGTH             20
+
+#define ABILITY_P2_ID                   1002 // +[ABILITY_P2_STRENGTH] max lifes
+#define ABILITY_P2_STRENGTH             2
+
+#define ABILITY_P3_ID                   1003 // +[ABILITY_P3_STRENGTH]% size
+#define ABILITY_P3_STRENGTH             20
+
+#define ABILITY_P4_ID                   1004 // +[ABILITY_P4_STRENGTH] max resources
+#define ABILITY_P4_STRENGTH             1
+
 // ACTIVE ABILITY (WM_USER + 2XXX)
 #define DEFAULT_ABILITY_A1_ID           ABILITY_A1_ID
 #define DEFAULT_ABILITY_A2_ID           ABILITY_A2_ID
 #define DEFAULT_ABILITY_A3_ID           ABILITY_A3_ID
-#define ABILITY_A1_ID                   2001 // x2 character size for 10s
-#define ABILITY_A2_ID                   2002 // x2 speed for 10s
-#define ABILITY_A3_ID                   2003 // get all gifts on the screen
-#define ABILITY_A4_ID                   2004 // heals 3 lifes
-#define ABILITY_A5_ID                   2005 // x2 income score for 10s
-#define ABILITY_A6_ID                   2006 // -10% current gravity
+
+#define ABILITY_A1_ID                   2001 // +[ABILITY_A1_STRENGTH]% character size for [ABILITY_A1_TIME]ms
+#define ABILITY_A1_STRENGTH             100
+#define ABILITY_A1_TIME                 10000
+
+#define ABILITY_A2_ID                   2002 // +[ABILITY_A2_STRENGTH]% speed for [ABILITY_A2_TIME]ms
+#define ABILITY_A2_STRENGTH             100
+#define ABILITY_A2_TIME                 10000
+
+#define ABILITY_A3_ID                   2003 // collects all gifts on the screen
+
+#define ABILITY_A4_ID                   2004 // heals [ABILITY_A4_STRENGTH] lifes
+#define ABILITY_A4_STRENGTH             3
+
+#define ABILITY_A5_ID                   2005 // +[ABILITY_A5_STRENGTH]% income score for [ABILITY_A5_TIME]s
+#define ABILITY_A5_STRENGTH             100
+#define ABILITY_A5_TIME                 10000
+
+#define ABILITY_A6_ID                   2006 // -[ABILITY_A6_STRENGTH]% current gravity
+#define ABILITY_A6_STRENGTH             10
+

@@ -1,20 +1,11 @@
-#include "objects.h"
-
+#pragma once
 #include <stdlib.h>
 
 #include "mechanics.h"
-#include "resources.h"
-#include "abilities.h"
+#include "objects.h"
+#include "variables.h"
 
-VOID respawnResource(Resource *resource);
-
-VOID giftsFalling(VOID);
-VOID abilityResourcesFalling(VOID);
-VOID resourceLifeFalling(VOID);
-
-VOID loadSkin(UINT ID);
-
-VOID resizeObjectsSizeBasedOnSkin();
+#include <Windows.h>
 
 VOID initGame(
     HINSTANCE hInstance,
@@ -30,8 +21,6 @@ VOID initGame(
     UINT AbilityA3
 );
 
-VOID clearGame();
-
 VOID reinitGame(
     HINSTANCE hInstance,
     INT windowWidth,
@@ -46,21 +35,19 @@ VOID reinitGame(
     UINT AbilityA3
 );
 
+VOID clearGame();
+
 VOID gameProc(VOID);
 
-VOID restartGame(VOID);
-
-VOID updateGameInfoPane(VOID);
-
-VOID updateScoreCounter(HDC hdc, PAINTSTRUCT *ps, HFONT hFont);
-
-VOID gameOver(VOID);
-
-VOID switchPane(HWND source, HWND destination);
-
 VOID startGame(VOID);
+VOID restartGame(VOID);
 VOID pauseGame(VOID);
 VOID continueGame(VOID);
 VOID finishGame(VOID);
+VOID gameOver(VOID);
 
-VOID playMusic(UINT music);
+VOID respawnResource(Resource *resource);
+
+VOID giftsFalling(VOID);
+VOID abilityResourcesFalling(VOID);
+VOID resourceLifeFalling(VOID);

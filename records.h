@@ -5,9 +5,8 @@
 #include <string.h>
 #include <Windows.h>
 
-
 #define MAX_RECORDS_AMOUNT              10
-#define MAX_NAME_FOR_RECORD_LENGTH					10
+#define MAX_NAME_FOR_RECORD_LENGTH		10
 #define FILENAME_WITH_RECORDS           L"records.bin"
 
 typedef struct Record {
