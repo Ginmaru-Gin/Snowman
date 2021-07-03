@@ -19,3 +19,5 @@ typedef struct Skin {
 VOID loadSkin(UINT ID);
 
 VOID resizeObjectsSizeBasedOnSkin();
+
+VOID clearSkin(VOID);

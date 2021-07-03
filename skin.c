@@ -3,6 +3,7 @@
 
 VOID loadSkin(UINT ID) {
     if (ID == skin.ID) return;
+    clearSkin();
     switch (ID) {
     case SKIN_SNOWMAN:
         skin.gameBackground = LoadImageW(hInstance, MAKEINTRESOURCEW(IDB_SNOWMAN_BKG_BMP), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
@@ -16,6 +17,7 @@ VOID loadSkin(UINT ID) {
         skin.gameMusic = WAVE_SNOWMAN_GAME_MUSIC;
         skin.menuMusic = WAVE_SNOWMAN_MENU_MUSIC;
         break;
+
     case SKIN_EVANGELION:
         skin.gameBackground = LoadImageW(hInstance, MAKEINTRESOURCEW(IDB_EVANGELION_BKG_BMP), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
         skin.paneBackground = LoadImageW(hInstance, MAKEINTRESOURCEW(IDB_EVANGELION_PANE_BKG_BMP), IMAGE_BITMAP, 0, 0, LR_DEFAULTCOLOR);
@@ -29,6 +31,7 @@ VOID loadSkin(UINT ID) {
         skin.menuMusic = WAVE_EVANGELION_MENU_MUSIC;
         break;
     }
+    skin.ID = ID;
 
     resizeObjectsSizeBasedOnSkin();
     InvalidateRect(hCharacterListPaneWnd, NULL, TRUE);
@@ -61,5 +64,16 @@ VOID resizeObjectsSizeBasedOnSkin() {
         k = bmp.bmWidth > bmp.bmHeight ? (DOUBLE)MAX_FALLER_WIDTH / bmp.bmWidth : (DOUBLE)MAX_FALLER_HEIGHT / bmp.bmHeight;
         game.abilityResources[i].width = bmp.bmWidth * k;
         game.abilityResources[i].height = bmp.bmHeight * k;
+    }
+}
+
+VOID clearSkin(VOID) {
+    DeleteObject(skin.gameBackground);
+    DeleteObject(skin.paneBackground);
+    DeleteObject(skin.character);
+    DeleteObject(skin.gift);
+    DeleteObject(skin.resourceLife);
+    for (int i = 0; i < ACTIVE_ABILITY_COUNT; ++i) {
+        DeleteObject(skin.abilityResources[ACTIVE_ABILITY_1 + i]);
     }
 }
