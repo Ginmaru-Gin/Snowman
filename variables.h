@@ -9,6 +9,7 @@ RECT clipCursorRect;
 Game game;
 RecordList recordList;
 Skin skin;
+SkinsList skinsList;
 INT widthGameWnd;
 INT heightGameWnd;
 INT widthPaneWnd;
@@ -87,6 +88,9 @@ HWND hEasyDifficultyBtn;
 HWND hNormalDifficultyBtn;
 HWND hHardDifficultyBtn;
 
+// SKIN BUTTON HANDLE
+HWND *hSkinsButtonsHandles;
+
 // CHARACTER BUTTON HANDLE
 HWND hCharacterBtnSnowman;
 HWND hCharacterBtnEvangelion;
@@ -136,6 +140,7 @@ HWND hRecordListLabels[MAX_RECORDS_AMOUNT];
 #define APPLY_NEW_RECORD_PANE_BTN_ID            220
 #define BACK_FROM_RECORD_LIST_PANE_BTN_ID       221
 #define RECORD_LIST_BTN_ID                      222
+#define SKIN_BTN_ID                             223
 
 // DIFFICULTY BUTTON ID : 3XX
 #define EASY_DIFFICULTY_BTN_ID           301
@@ -146,17 +151,13 @@ HWND hRecordListLabels[MAX_RECORDS_AMOUNT];
 #define RECORD_LIST_LABELS_ID           401 // RESERVS 10 VALUES, the next one should be 412
 //#define                                 412
 
-// CHARACTER BUTTON ID : 5XX
-#define CHARACTER_SNOWMAN_BTN_ID        501
-#define CHARACTER_EVANGELION_BTN_ID     502
-
-// CHOOSE PASSIVE ABILITY BUTTON ID : 6XX
+// CHOOSE PASSIVE ABILITY BUTTON ID : 5XX
 #define CHOOSE_PASSIVE_ABILITY1_BTN_ID          601
 #define CHOOSE_PASSIVE_ABILITY2_BTN_ID          602
 #define CHOOSE_PASSIVE_ABILITY3_BTN_ID          603
 #define CHOOSE_PASSIVE_ABILITY4_BTN_ID          604
 
-// CHOOSE ACTIVE ABILITY BUTTON ID : 7XX
+// CHOOSE ACTIVE ABILITY BUTTON ID : 6XX
 #define CHOOSE_ACTIVE_ABILITY1_BTN_ID           701
 #define CHOOSE_ACTIVE_ABILITY2_BTN_ID           702
 #define CHOOSE_ACTIVE_ABILITY3_BTN_ID           703
@@ -164,9 +165,8 @@ HWND hRecordListLabels[MAX_RECORDS_AMOUNT];
 #define CHOOSE_ACTIVE_ABILITY5_BTN_ID           705
 #define CHOOSE_ACTIVE_ABILITY6_BTN_ID           706
 
-// TEXT BOX : 8XX
+// TEXT BOX : 7XX
 #define NAME_FOR_NEW_RECORD_TEX_BOX_ID          801
-
 
 // WINDOW CLASS NAME
 #define MAIN_WC_NAME                    L"Snowman Main Window"
@@ -223,10 +223,21 @@ HWND hRecordListLabels[MAX_RECORDS_AMOUNT];
 #define EASY_DIFFICULTY_LIVES               7
 #define EASY_GIFTS_COUNT                    5
 
-// SKIN ID
-#define SKIN_DEFAULT                    SKIN_SNOWMAN
-#define SKIN_SNOWMAN                    1
-#define SKIN_EVANGELION                 2
+// SKINS VARIABLES
+#define SKINS_DIR                       L"skins"
+#define SKIN_DEFAULT_ID                 1
+// SKIN TEXTURES FILES
+#define SKIN_FILE_GAME_BKG              L"background.data.bmp"
+#define SKIN_FILE_PANE_BKG              L"paneBkg.data.bmp"
+#define SKIN_FILE_CHARACTER             L"snowman.data.bmp"
+#define SKIN_FILE_RESOURCE_1            L"resource1.data.bmp"
+#define SKIN_FILE_RESOURCE_2            L"resource2.data.bmp"
+#define SKIN_FILE_RESOURCE_3            L"resource3.data.bmp"
+#define SKIN_FILE_RESOURCE_GIFT         L"resourceGift.data.bmp"
+#define SKIN_FILE_RESOURCE_LIFE         L"resourceLife.data.bmp"
+// SKIN AUDIO FILES
+#define SKIN_FILE_GAME_MUSIC            L"gameMusic.data.wav"
+#define SKIN_FILE_MENU_MUSIC            L"menuMusic.data.wav"
 
 // ABILITIES
 #define WM_USE_ABILITY                  (WM_USER + 1)

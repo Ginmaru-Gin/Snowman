@@ -1,6 +1,6 @@
 // Microsoft Visual C++ generated resource script.
 //
-#include "resources.h"
+#include "resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
@@ -57,50 +57,34 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// Bitmap
+// BITMAP
 //
 
-// SNOWMAN SKIN
-IDB_SNOWMAN_BKG_BMP             BITMAP                  L"assets\\skins\\snowman\\background.data.bmp"
+IDB_SNOWMAN_BKG_BMP             BITMAP                  "assets\\background.data.bmp"
 
-IDB_SNOWMAN_RESOURCE_GIFT_BMP   BITMAP                  L"assets\\skins\\snowman\\resourceGift.data.bmp"
+IDB_SNOWMAN_RESOURCE_GIFT_BMP   BITMAP                  "assets\\resourceGift.data.bmp"
 
-IDB_SNOWMAN_SNOWMAN_BMP         BITMAP                  L"assets\\skins\\snowman\\snowman.data.bmp"
+IDB_SNOWMAN_SNOWMAN_BMP         BITMAP                  "assets\\snowman.data.bmp"
 
-IDB_SNOWMAN_RESOURCE1_BMP       BITMAP                  L"assets\\skins\\snowman\\resource1.data.bmp"
+IDB_SNOWMAN_RESOURCE1_BMP       BITMAP                  "assets\\resource1.data.bmp"
 
-IDB_SNOWMAN_RESOURCE2_BMP       BITMAP                  L"assets\\skins\\snowman\\resource2.data.bmp" 
+IDB_SNOWMAN_RESOURCE2_BMP       BITMAP                  "assets\\resource2.data.bmp"
 
-IDB_SNOWMAN_RESOURCE3_BMP       BITMAP                  L"assets\\skins\\snowman\\resource3.data.bmp"
+IDB_SNOWMAN_RESOURCE3_BMP       BITMAP                  "assets\\resource3.data.bmp"
 
-IDB_SNOWMAN_RESOURCE_LIFE_BMP   BITMAP                  L"assets\\skins\\snowman\\resourceLife.data.bmp"
+IDB_SNOWMAN_RESOURCE_LIFE_BMP   BITMAP                  "assets\\resourceLife.data.bmp"
 
-IDB_SNOWMAN_PANE_BKG_BMP        BITMAP                  L"assets\\skins\\snowman\\paneBkg.data.bmp"
+IDB_SNOWMAN_PANE_BKG_BMP        BITMAP                  "assets\\paneBkg.data.bmp"
 
-WAVE_SNOWMAN_GAME_MUSIC         WAVE                    L"assets\\skins\\snowman\\gameMusic.data.wav"
 
-WAVE_SNOWMAN_MENU_MUSIC         WAVE                    L"assets\\skins\\snowman\\menuMusic.data.wav"
+/////////////////////////////////////////////////////////////////////////////
+//
+// WAVE
+//
 
-// \\skinsEVANGELION SKIN
-IDB_EVANGELION_BKG_BMP             BITMAP               L"assets\\skins\\evangelion\\background.data.bmp"
+WAVE_SNOWMAN_GAME_MUSIC WAVE                    "assets\\gameMusic.data.wav"
 
-IDB_EVANGELION_RESOURCE_GIFT_BMP   BITMAP               L"assets\\skins\\evangelion\\resourceGift.data.bmp"
-
-IDB_EVANGELION_SNOWMAN_BMP         BITMAP               L"assets\\skins\\evangelion\\snowman.data.bmp"
-
-IDB_EVANGELION_RESOURCE1_BMP       BITMAP               L"assets\\skins\\evangelion\\resource1.data.bmp"
-
-IDB_EVANGELION_RESOURCE2_BMP       BITMAP               L"assets\\skins\\evangelion\\resource2.data.bmp" 
-
-IDB_EVANGELION_RESOURCE3_BMP       BITMAP               L"assets\\skins\\evangelion\\resource3.data.bmp"
-
-IDB_EVANGELION_RESOURCE_LIFE_BMP   BITMAP               L"assets\\skins\\evangelion\\resourceLife.data.bmp"
-
-IDB_EVANGELION_PANE_BKG_BMP        BITMAP               L"assets\\skins\\evangelion\\paneBkg.data.bmp"
-
-WAVE_EVANGELION_GAME_MUSIC         WAVE                 L"assets\\skins\\evangelion\\gameMusic.data.wav"
-
-WAVE_EVANGELION_MENU_MUSIC         WAVE                 L"assets\\skins\\evangelion\\menuMusic.data.wav"
+WAVE_SNOWMAN_MENU_MUSIC WAVE                    "assets\\menuMusic.data.wav"
 
 #endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////

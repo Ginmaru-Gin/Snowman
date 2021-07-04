@@ -51,6 +51,7 @@ LRESULT CALLBACK mainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) 
         break;
 
     case WM_CREATE:
+        loadSkinsList();
         loadRecordList();
         break;
 
@@ -180,7 +181,7 @@ LRESULT CALLBACK gameWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) 
         );
         game.status = GAME_IN_BACKGROUND_MODE;
 
-        loadSkin(SKIN_DEFAULT);
+        loadSkin(SKIN_DEFAULT_ID);
         playMusic(skin.menuMusic);
 
         SetTimer(
@@ -229,6 +230,7 @@ LRESULT CALLBACK gameWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) 
     return 0;
 }
 
+#define MAX_BUFFER_STR_LENGTH 100
 LRESULT CALLBACK paneWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     PAINTSTRUCT ps;
     HDC hdcWindow, hdcRenderer;
@@ -236,7 +238,7 @@ LRESULT CALLBACK paneWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) 
     RECT rectWnd;
     BITMAP bmp;
     static HFONT hFont;
-    PWSTR bufferStr[100];
+    WCHAR bufferStr[MAX_BUFFER_STR_LENGTH];
     Record record;
 
     static UINT abilitiesForNewGame[ACTIVE_ABILITY_COUNT + PASSIVE_ABILITY_COUNT] = {
@@ -343,11 +345,9 @@ LRESULT CALLBACK paneWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) 
             break;
 
             // CHOOSE SKIN
-        case CHARACTER_SNOWMAN_BTN_ID:
-            loadSkin(SKIN_SNOWMAN);
-            break;
-        case CHARACTER_EVANGELION_BTN_ID:
-            loadSkin(SKIN_EVANGELION);
+        case SKIN_BTN_ID:
+            GetWindowTextW((HWND)lParam, bufferStr, MAX_BUFFER_STR_LENGTH);
+            loadSkin(getSkinID(bufferStr));
             break;
 
             // ABILITY LIST PANE
@@ -376,70 +376,70 @@ LRESULT CALLBACK paneWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) 
             // CHOOSE ACTIVE ABILITY 1
         case CHOOSE_ACTIVE_ABILITY1_BTN_ID:
             abilitiesForNewGame[ACTIVE_ABILITY_1] = ABILITY_A1_ID;
-            GetWindowTextW(hChooseAbilityA1Btn, (LPWSTR)bufferStr, 100);
+            GetWindowTextW(hChooseAbilityA1Btn, (LPWSTR)bufferStr, MAX_BUFFER_STR_LENGTH);
             SetWindowTextW(hListActiveAbility1BtnWnd, (LPCWSTR)bufferStr);
             switchPane(hwnd, hChooseAbilitiesPaneWnd);
             break;
             // CHOOSE ACTIVE ABILITY 2
         case CHOOSE_ACTIVE_ABILITY2_BTN_ID:
             abilitiesForNewGame[ACTIVE_ABILITY_2] = ABILITY_A2_ID;
-            GetWindowTextW(hChooseAbilityA2Btn, (PWSTR)bufferStr, 100);
+            GetWindowTextW(hChooseAbilityA2Btn, (PWSTR)bufferStr, MAX_BUFFER_STR_LENGTH);
             SetWindowTextW(hListActiveAbility2BtnWnd, (LPCWSTR)bufferStr);
             switchPane(hwnd, hChooseAbilitiesPaneWnd);
             break;
             // CHOOSE ACTIVE ABILITY 3
         case CHOOSE_ACTIVE_ABILITY3_BTN_ID:
             abilitiesForNewGame[ACTIVE_ABILITY_3] = ABILITY_A3_ID;
-            GetWindowTextW(hChooseAbilityA3Btn, (PWSTR)bufferStr, 100);
+            GetWindowTextW(hChooseAbilityA3Btn, (PWSTR)bufferStr, MAX_BUFFER_STR_LENGTH);
             SetWindowTextW(hListActiveAbility3BtnWnd, (LPCWSTR)bufferStr);
             switchPane(hwnd, hChooseAbilitiesPaneWnd);
             break;
             // CHOOSE ACTIVE ABILITY 4
         case CHOOSE_ACTIVE_ABILITY4_BTN_ID:
             abilitiesForNewGame[ACTIVE_ABILITY_1] = ABILITY_A4_ID;
-            GetWindowTextW(hChooseAbilityA4Btn, (PWSTR)bufferStr, 100);
+            GetWindowTextW(hChooseAbilityA4Btn, (PWSTR)bufferStr, MAX_BUFFER_STR_LENGTH);
             SetWindowTextW(hListActiveAbility1BtnWnd, (LPCWSTR)bufferStr);
             switchPane(hwnd, hChooseAbilitiesPaneWnd);
             break;
             // CHOOSE ACTIVE ABILITY 5
         case CHOOSE_ACTIVE_ABILITY5_BTN_ID:
             abilitiesForNewGame[ACTIVE_ABILITY_2] = ABILITY_A5_ID;
-            GetWindowTextW(hChooseAbilityA5Btn, (PWSTR)bufferStr, 100);
+            GetWindowTextW(hChooseAbilityA5Btn, (PWSTR)bufferStr, MAX_BUFFER_STR_LENGTH);
             SetWindowTextW(hListActiveAbility2BtnWnd, (LPCWSTR)bufferStr);
             switchPane(hwnd, hChooseAbilitiesPaneWnd);
             break;
             // CHOOSE ACTIVE ABILITY 6
         case CHOOSE_ACTIVE_ABILITY6_BTN_ID:
             abilitiesForNewGame[ACTIVE_ABILITY_3] = ABILITY_A6_ID;
-            GetWindowTextW(hChooseAbilityA6Btn, (PWSTR)bufferStr, 100);
+            GetWindowTextW(hChooseAbilityA6Btn, (PWSTR)bufferStr, MAX_BUFFER_STR_LENGTH);
             SetWindowTextW(hListActiveAbility3BtnWnd, (LPCWSTR)bufferStr);
             switchPane(hwnd, hChooseAbilitiesPaneWnd);
             break;
             // CHOOSE PASSIVE ABILITY 1
         case CHOOSE_PASSIVE_ABILITY1_BTN_ID:
             abilitiesForNewGame[PASSIVE_ABILITY_1] = ABILITY_P1_ID;
-            GetWindowTextW(hChooseAbilityP1Btn, (PWSTR)bufferStr, 100);
+            GetWindowTextW(hChooseAbilityP1Btn, (PWSTR)bufferStr, MAX_BUFFER_STR_LENGTH);
             SetWindowTextW(hListPassiveAbility1BtnWnd, (LPCWSTR)bufferStr);
             switchPane(hwnd, hChooseAbilitiesPaneWnd);
             break;
             // CHOOSE PASSIVE ABILITY 2
         case CHOOSE_PASSIVE_ABILITY2_BTN_ID:
             abilitiesForNewGame[PASSIVE_ABILITY_2] = ABILITY_P2_ID;
-            GetWindowTextW(hChooseAbilityP2Btn, (PWSTR)bufferStr, 100);
+            GetWindowTextW(hChooseAbilityP2Btn, (PWSTR)bufferStr, MAX_BUFFER_STR_LENGTH);
             SetWindowTextW(hListPassiveAbility2BtnWnd, (LPCWSTR)bufferStr);
             switchPane(hwnd, hChooseAbilitiesPaneWnd);
             break;
             // CHOOSE PASSIVE ABILITY 3
         case CHOOSE_PASSIVE_ABILITY3_BTN_ID:
             abilitiesForNewGame[PASSIVE_ABILITY_1] = ABILITY_P3_ID;
-            GetWindowTextW(hChooseAbilityP3Btn, (PWSTR)bufferStr, 100);
+            GetWindowTextW(hChooseAbilityP3Btn, (PWSTR)bufferStr, MAX_BUFFER_STR_LENGTH);
             SetWindowTextW(hListPassiveAbility1BtnWnd, (LPCWSTR)bufferStr);
             switchPane(hwnd, hChooseAbilitiesPaneWnd);
             break;
             // CHOOSE PASSIVE ABILITY 4
         case CHOOSE_PASSIVE_ABILITY4_BTN_ID:
             abilitiesForNewGame[PASSIVE_ABILITY_2] = ABILITY_P4_ID;
-            GetWindowTextW(hChooseAbilityP4Btn, (PWSTR)bufferStr, 100);
+            GetWindowTextW(hChooseAbilityP4Btn, (PWSTR)bufferStr, MAX_BUFFER_STR_LENGTH);
             SetWindowTextW(hListPassiveAbility2BtnWnd, (LPCWSTR)bufferStr);
             switchPane(hwnd, hChooseAbilitiesPaneWnd);
             break;
@@ -547,6 +547,7 @@ LRESULT CALLBACK paneWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) 
     }
     return 0;
 }
+#undef MAX_BUFFER_STR_LENGTH
 
 VOID registerClasses(VOID) {
     WNDCLASSEXW mainWC;
@@ -919,30 +920,6 @@ VOID createWindows(VOID) {
         NULL
     );
 
-    hCharacterBtnSnowman = CreateWindowW(
-        L"BUTTON",
-        L"Снежок",
-        WS_CHILD | WS_VISIBLE | BS_CENTER,
-        50, 50,
-        200, 50,
-        hCharacterListPaneWnd,
-        (HMENU)CHARACTER_SNOWMAN_BTN_ID,
-        hInstance,
-        NULL
-    );
-
-    hCharacterBtnEvangelion = CreateWindowW(
-        L"BUTTON",
-        L"Evangelion",
-        WS_CHILD | WS_VISIBLE | BS_CENTER,
-        50, 150,
-        200, 50,
-        hCharacterListPaneWnd,
-        (HMENU)CHARACTER_EVANGELION_BTN_ID,
-        hInstance,
-        NULL
-    );
-
     hBackFromListCharacterPaneBtn = CreateWindowW(
         L"BUTTON",
         L"Назад",
@@ -1230,6 +1207,23 @@ VOID createWindows(VOID) {
         hInstance,
         NULL
     );
+
+    // SKIN BUTTONS
+    if (hSkinsButtonsHandles = (HWND *)malloc(sizeof(HWND) * skinsList.amount)) {
+        for (UINT i = SKIN_DEFAULT_ID; i < skinsList.amount + 1; ++i) {
+            hSkinsButtonsHandles[i] = CreateWindowW(
+                L"BUTTON",
+                skinsList.names[i],
+                WS_CHILD | WS_VISIBLE | BS_CENTER,
+                50, 50 + (i - SKIN_DEFAULT_ID) * 100,
+                200, 50,
+                hCharacterListPaneWnd,
+                (HMENU)SKIN_BTN_ID,
+                hInstance,
+                NULL
+            );
+        }
+    }
 
     // TEXT BOX
     hNameForNewRecordTextBox = CreateWindowW(
